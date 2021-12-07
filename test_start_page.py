@@ -91,18 +91,17 @@ class TestStartPage:
         return new_pas[:12]
 
     def test_login_user(self):
-        """Test  sign up new user successfully"""
-        """
-        - Create driver
-        - Open start page
-        - Find and clear username 
-        - Pick  new username
-        - Find and clear email 
-        - Set valid email 
-        - Find and clear password
-        - Create password
-        - Click Sign up button
-        - Verify success sign up
+        """Test  sign up new user successfully:
+            - Create driver
+            - Open start page
+            - Find and clear username
+            - Pick  new username
+            - Find and clear email
+            - Set valid email
+            - Find and clear password
+            - Create password
+            - Click Sign up button
+            - Verify success sign up
         """
         # Create driver
         driver = webdriver.WebDriver(executable_path="./drivers/chromedriver.exe")
@@ -134,8 +133,7 @@ class TestStartPage:
         assert hello_user.text == f"Hello {temp_username.lower()}, your feed is empty."
 
     def test_refresh_first_page(self):
-        """Refresh first page"""
-        """
+        """Refresh first page:
             - Create driver
             - Open start page
             - Find and clear username
@@ -180,8 +178,7 @@ class TestStartPage:
         assert hello_user.text == f"Hello jack111, your feed is empty."
 
     def test_transition_to_search_bar(self):
-        """Transition to the search bar"""
-        """
+        """Transition to the search bar:
             - Create driver
             - Open start page
             - Find and clear username
@@ -226,8 +223,7 @@ class TestStartPage:
         assert search_bar.is_displayed()
 
     def test_transition_to_chat_form(self):
-        """Transition to the char form"""
-        """
+        """Transition to the char form:
             - Create driver
             - Open start page
             - Find and clear username
@@ -272,8 +268,7 @@ class TestStartPage:
         assert chat_form.text == "Chat"
 
     def test_transition_to_my_profile(self):
-        """Transition to my profile page"""
-        """
+        """Transition to my profile page:
             - Create driver
             - Open start page
             - Find and clear username
@@ -318,8 +313,7 @@ class TestStartPage:
         assert username_text.text == "jack111"
 
     def test_transition_to_create_post(self):
-        """Transition to my profile page"""
-        """
+        """Transition to my profile page:
             - Create driver
             - Open start page
             - Find and clear username
