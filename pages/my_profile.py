@@ -8,7 +8,7 @@ class MyProfile(BasePage):
 
     def __init__(self, driver):
         super().__init__(driver)
-        self.constants = MyProfileConstants
+        self.constants = MyProfileConstants()
 
     def my_profile_is_opened(self, username):
         """Verify my profile is opened"""

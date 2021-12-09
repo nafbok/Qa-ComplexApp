@@ -6,11 +6,10 @@ import pytest
 from selenium.webdriver.chrome import webdriver
 
 from constants.base import BaseConstants
-from pages import my_profile
 from pages.start_page import StartPage
 
 
-class TestStartPage:
+class TestStartPage():
 
     @pytest.fixture(scope='function')
     def driver(self):
@@ -202,6 +201,7 @@ class TestStartPage:
 
         main_page.transition_to_my_profile()
         # verify chat form is opened successful
+        my_profile = main_page.transition_to_my_profile(temp_username)
         my_profile.my_profile_is_opened()
 
     def test_transition_to_create_post(self, start_page, registered_user):
@@ -211,7 +211,6 @@ class TestStartPage:
             - Click Create post button
             - Check Create post is opened successful   
         """
-
         # Init user data from fixture
         temp_username, _, temp_password = registered_user
 
@@ -222,3 +221,5 @@ class TestStartPage:
         # transition to create post
         main_page.transition_to_create_post_page()
         # verify create post is opened successful
+        create_post = main_page.transition_to_create_post_page()
+        create_post.create_post_is_opened()

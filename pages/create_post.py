@@ -8,7 +8,7 @@ class CreatePost(BasePage):
 
     def __init__(self, driver):
         super().__init__(driver)
-        self.constants = CreatePostConstants
+        self.constants = CreatePostConstants()
 
     def create_post_is_opened(self):
         """Verify create post page is opened"""

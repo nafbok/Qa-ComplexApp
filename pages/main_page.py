@@ -2,6 +2,8 @@ from selenium.webdriver.common.by import By
 
 from constants.main_page import MainPageConstants
 from pages.base import BasePage
+from pages.create_post import CreatePost
+from pages.my_profile import MyProfile
 
 
 class MainPage(BasePage):
@@ -44,7 +46,9 @@ class MainPage(BasePage):
     def transition_to_my_profile(self):
         """Open my profile page"""
         self.driver.find_element(by=By.XPATH, value=self.constants.MY_PROFILE_ICON_XPATH)
+        return MyProfile(self.driver)
 
     def transition_to_create_post_page(self):
         """Open Create post page"""
         self.driver.find_element(by=By.XPATH, value=self.constants.CREATE_POST_BUTTON_XPATH)
+        return CreatePost(self.driver)
