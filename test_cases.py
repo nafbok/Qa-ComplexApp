@@ -1,11 +1,12 @@
-"""Stores tests related to Start page"""
+"""Stores tests related to Start page and Main Page"""
 import random
+from time import sleep
 
 import pytest
 from selenium.webdriver.chrome import webdriver
-from selenium.webdriver.common.by import By
 
 from constants.base import BaseConstants
+from pages import my_profile
 from pages.start_page import StartPage
 
 
@@ -30,13 +31,10 @@ class TestStartPage:
         temp_username = self.random_username()
         temp_email = self.random_email()
         temp_password = self.random_password()
-
         # Fill fields with provided  values
         main_page = start_page.register_user(temp_username, temp_email, temp_password)
-
         # Logout
         main_page.logout()
-
         return temp_username, temp_email, temp_password
 
     def test_start_page(self, start_page):
@@ -159,10 +157,12 @@ class TestStartPage:
 
         # find and click search icon
         main_page.transition_to_search_bar()
+        sleep(3)
 
         # verify search bar is opened successful
         main_page.verify_search_bar_opened()
         self.log.debug("Search bar was opened")
+        sleep(3)
 
     def test_transition_to_chat_form(self, start_page, registered_user):
         """Transition to the char form:
@@ -179,10 +179,12 @@ class TestStartPage:
 
         # find and click chat icon
         main_page.transition_to_chat_form()
+        sleep(2)
 
         # verify chat form is opened successful
         main_page.verify_chat_form_opened()
         self.log.debug("Chat form is opened")
+        sleep(2)
 
     def test_transition_to_my_profile(self, start_page, registered_user):
         """Transition to my profile page:
@@ -199,9 +201,8 @@ class TestStartPage:
         self.log.info("Logged as '%s'", temp_username)
 
         main_page.transition_to_my_profile()
-
         # verify chat form is opened successful
-        my_profile
+        my_profile.my_profile_is_opened()
 
     def test_transition_to_create_post(self, start_page, registered_user):
         """Transition to my profile page:
@@ -211,10 +212,13 @@ class TestStartPage:
             - Check Create post is opened successful   
         """
 
-        # find and click Create post
-        create_post_button = driver.find_element(by=By.XPATH, value=".//*[text()='Create Post']")
-        create_post_button.click()
+        # Init user data from fixture
+        temp_username, _, temp_password = registered_user
 
+        # Login as registered user
+        main_page = start_page.login(temp_username, temp_password)
+        self.log.info("Logged as '%s'", temp_username)
+
+        # transition to create post
+        main_page.transition_to_create_post_page()
         # verify create post is opened successful
-        new_post = driver.find_element(by=By.XPATH, value=".//*[contains(text(), 'Title')]")
-        assert new_post.text == 'Title'
