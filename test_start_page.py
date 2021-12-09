@@ -1,6 +1,5 @@
 """Stores tests related to Start page"""
 import random
-from time import sleep
 
 import pytest
 from selenium.webdriver.chrome import webdriver
@@ -125,207 +124,92 @@ class TestStartPage:
         main_page.verify_welcome_message(temp_username)
         self.log.info("Welcome message was verified")
 
-    def test_refresh_first_page(self, driver):
+    def test_refresh_first_page(self, start_page, registered_user):
         """Refresh first page:
-            - Create driver
-            - Open start page
-            - Find and clear username
             - Log in user
             - Find the logo "Complex app for testing - QA" 
             - Click the logo
             - Check refresh page successful   
         """
-        # open start page
-        driver.get("https://qa-complex-app-for-testing.herokuapp.com/")
+        # Init user data from fixture
+        temp_username, _, temp_password = registered_user
 
-        # find and clear username
-        username = driver.find_element(by=By.XPATH, value=".//input[@placeholder='Username']")
-        username.clear()
+        # Login as registered user
+        main_page = start_page.login(temp_username, temp_password)
+        self.log.info("Logged as '%s'", temp_username)
 
-        # set user name
-        username.send_keys('Jack111')
-        sleep(3)
-
-        # find and clear password
-        password = driver.find_element(by=By.XPATH, value=".//input[@placeholder='Password']")
-        password.clear()
-
-        # set user password
-        password.send_keys('qazxswedc123')
-        sleep(3)
-
-        # find and click Sign in button
-        button = driver.find_element(by=By.XPATH, value=".//*[text()='Sign In']")
-        button.click()
-        sleep(3)
-
-        # find and click logo_link
-        logo_link = driver.find_element(by=By.XPATH, value=".//h4")
-        logo_link.click()
-
+        main_page.refresh_main_page()
         # verify refresh page successful
-        hello_user = driver.find_element(by=By.XPATH, value=".//h2[contains(text(), 'Hello')]")
-        assert hello_user.text == f"Hello jack111, your feed is empty."
+        main_page.verify_welcome_message(temp_username)
+        self.log.info("Welcome message was verified")
 
-    def test_transition_to_search_bar(self, driver):
+    def test_transition_to_search_bar(self, start_page, registered_user):
         """Transition to the search bar:
-            - Create driver
-            - Open start page
-            - Find and clear username
             - Log in user
             - Find search icon
             - Click search icon
             - Check search bar is opened successful   
         """
-        # open start page
-        driver.get("https://qa-complex-app-for-testing.herokuapp.com/")
+        # Init user data from fixture
+        temp_username, _, temp_password = registered_user
 
-        # find and clear username
-        username = driver.find_element(by=By.XPATH, value=".//input[@placeholder='Username']")
-        username.clear()
-
-        # set user name
-        username.send_keys('Jack111')
-        sleep(3)
-
-        # find and clear password
-        password = driver.find_element(by=By.XPATH, value=".//input[@placeholder='Password']")
-        password.clear()
-
-        # set user password
-        password.send_keys('qazxswedc123')
-        sleep(3)
-
-        # find and click Sign in button
-        button = driver.find_element(by=By.XPATH, value=".//*[text()='Sign In']")
-        button.click()
-        sleep(3)
+        # Login as registered user
+        main_page = start_page.login(temp_username, temp_password)
+        self.log.info("Logged as '%s'", temp_username)
 
         # find and click search icon
-        search_icon = driver.find_element(by=By.XPATH, value=".//*[@data-original-title='Search']")
-        search_icon.click()
+        main_page.transition_to_search_bar()
 
         # verify search bar is opened successful
-        search_bar = driver.find_element(by=By.XPATH, value=".//input[@placeholder='What are you interested in?']")
-        assert search_bar.is_displayed()
+        main_page.verify_search_bar_opened()
+        self.log.debug("Search bar was opened")
 
-    def test_transition_to_chat_form(self, driver):
+    def test_transition_to_chat_form(self, start_page, registered_user):
         """Transition to the char form:
-            - Create driver
-            - Open start page
-            - Find and clear username
-            - Log in user
             - Find chat icon
             - Click chat icon
             - Check chat form is opened successful   
         """
-        # open start page
-        driver.get("https://qa-complex-app-for-testing.herokuapp.com/")
+        # Init user data from fixture
+        temp_username, _, temp_password = registered_user
 
-        # find and clear username
-        username = driver.find_element(by=By.XPATH, value=".//input[@placeholder='Username']")
-        username.clear()
-
-        # set user name
-        username.send_keys('Jack111')
-        sleep(3)
-
-        # find and clear password
-        password = driver.find_element(by=By.XPATH, value=".//input[@placeholder='Password']")
-        password.clear()
-
-        # set user password
-        password.send_keys('qazxswedc123')
-        sleep(3)
-
-        # find and click Sign in button
-        button = driver.find_element(by=By.XPATH, value=".//*[text()='Sign In']")
-        button.click()
-        sleep(3)
+        # Login as registered user
+        main_page = start_page.login(temp_username, temp_password)
+        self.log.info("Logged as '%s'", temp_username)
 
         # find and click chat icon
-        chat_icon = driver.find_element(by=By.XPATH, value=".//*[@data-original-title='Chat']")
-        chat_icon.click()
+        main_page.transition_to_chat_form()
 
         # verify chat form is opened successful
-        chat_form = driver.find_element(by=By.XPATH, value=".//*[contains(text(), 'Chat')]")
-        assert chat_form.text == "Chat"
+        main_page.verify_chat_form_opened()
+        self.log.debug("Chat form is opened")
 
-    def test_transition_to_my_profile(self, driver):
+    def test_transition_to_my_profile(self, start_page, registered_user):
         """Transition to my profile page:
-            - Create driver
-            - Open start page
-            - Find and clear username
             - Log in user
             - Find my profile icon
             - Click my profile icon
             - Check my profile page is opened successful   
         """
-        # open start page
-        driver.get("https://qa-complex-app-for-testing.herokuapp.com/")
+        # Init user data from fixture
+        temp_username, _, temp_password = registered_user
 
-        # find and clear username
-        username = driver.find_element(by=By.XPATH, value=".//input[@placeholder='Username']")
-        username.clear()
+        # Login as registered user
+        main_page = start_page.login(temp_username, temp_password)
+        self.log.info("Logged as '%s'", temp_username)
 
-        # set user name
-        username.send_keys('Jack111')
-        sleep(3)
-
-        # find and clear password
-        password = driver.find_element(by=By.XPATH, value=".//input[@placeholder='Password']")
-        password.clear()
-
-        # set user password
-        password.send_keys('qazxswedc123')
-        sleep(3)
-
-        # find and click Sign in button
-        button = driver.find_element(by=By.XPATH, value=".//*[text()='Sign In']")
-        button.click()
-        sleep(5)
-
-        # find and click chat icon
-        my_profile_icon = driver.find_element(by=By.XPATH, value=".//*[@data-original-title='My Profile']")
-        my_profile_icon.click()
+        main_page.transition_to_my_profile()
 
         # verify chat form is opened successful
-        username_text = driver.find_element(by=By.XPATH, value=".//h2")
-        assert username_text.text == "jack111"
+        my_profile
 
-    def test_transition_to_create_post(self, driver):
+    def test_transition_to_create_post(self, start_page, registered_user):
         """Transition to my profile page:
-            - Create driver
-            - Open start page
-            - Find and clear username
             - Log in user
             - Find Create post button
             - Click Create post button
             - Check Create post is opened successful   
         """
-        # open start page
-        driver.get("https://qa-complex-app-for-testing.herokuapp.com/")
-
-        # find and clear username
-        username = driver.find_element(by=By.XPATH, value=".//input[@placeholder='Username']")
-        username.clear()
-
-        # set user name
-        username.send_keys('Jack111')
-        sleep(3)
-
-        # find and clear password
-        password = driver.find_element(by=By.XPATH, value=".//input[@placeholder='Password']")
-        password.clear()
-
-        # set user password
-        password.send_keys('qazxswedc123')
-        sleep(3)
-
-        # find and click Sign in button
-        button = driver.find_element(by=By.XPATH, value=".//*[text()='Sign In']")
-        button.click()
-        sleep(5)
 
         # find and click Create post
         create_post_button = driver.find_element(by=By.XPATH, value=".//*[text()='Create Post']")
