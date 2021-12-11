@@ -37,7 +37,7 @@ class MainPage(BasePage):
 
     def transition_to_chat_form(self):
         """Open Chat form"""
-        self.driver.find_element(by=By.XPATH, value=self.constants.CHAT_ICON_XPATH)
+        self.driver.find_element(by=By.XPATH, value=self.constants.CHAT_ICON_XPATH).click()
 
     def verify_chat_form_opened(self):
         chat_form = self.driver.find_element(by=By.XPATH, value=self.constants.CHAT_FORM_XPATH)
@@ -45,10 +45,10 @@ class MainPage(BasePage):
 
     def transition_to_my_profile(self):
         """Open my profile page"""
-        self.driver.find_element(by=By.XPATH, value=self.constants.MY_PROFILE_ICON_XPATH)
+        self.driver.find_element(by=By.XPATH, value=self.constants.MY_PROFILE_ICON_XPATH).click()
         return MyProfile(self.driver)
 
     def transition_to_create_post_page(self):
         """Open Create post page"""
-        self.driver.find_element(by=By.XPATH, value=self.constants.CREATE_POST_BUTTON_XPATH)
+        self.driver.find_element(by=By.XPATH, value=self.constants.CREATE_POST_BUTTON_XPATH).click()
         return CreatePost(self.driver)
