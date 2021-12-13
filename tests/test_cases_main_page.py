@@ -1,10 +1,73 @@
 """Stores tests related to Start page and Main Page"""
+from random import random
 from time import sleep
 
-from tests.test_cases_start_page import TestStartPage
+import pytest
+from selenium.webdriver.chrome import webdriver
+
+from conftest import BaseTest
+from constants.base import BaseConstants
+from pages.start_page import StartPage
 
 
-class TestMainPage(TestStartPage):
+class TestMainPage(BaseTest):
+
+    @pytest.fixture(scope='function')
+    def driver(self):
+        """Create and return driver, close after test"""
+        driver = webdriver.WebDriver(BaseConstants.DRIVER_PATH)
+        yield driver
+        driver.close()
+
+    @pytest.fixture(scope="function")
+    def start_page(self, driver):
+        """Return start page object"""
+        driver.get(BaseConstants.URL)
+        return StartPage(driver)
+
+    @pytest.fixture(scope="function")
+    def registered_user(self, start_page):
+        """Registered user and return data"""
+        temp_username = self.random_username()
+        temp_email = self.random_email()
+        temp_password = self.random_password()
+        # Fill fields with provided  values
+        main_page = start_page.register_user(temp_username, temp_email, temp_password)
+        # Logout
+        main_page.logout()
+        return temp_username, temp_email, temp_password
+
+    def random_username(self):
+        """Return random username"""
+        str_abc = 'qwertyuioplkjhgfdsazxcvbnm'
+        set_symbols = list(str_abc)
+        random.shuffle(set_symbols)
+        new_username = ''.join(set_symbols)
+        index = random.choice(range(3, 20))
+        return new_username.capitalize()[:index]
+
+    def random_email(self):
+        """Create random email"""
+        str_abc = 'qwertyuioplkjhgfdsazxcvbnm'
+        set_symbols = list(str_abc)
+        random.shuffle(set_symbols)
+        name = ''.join(set_symbols)
+        index = random.choice(range(3, 20))
+        email_item = ['@gmail.com', '@ukr.net', '@mail.com']
+        new_email = name[:index] + random.choice(email_item)
+        return new_email
+
+    def random_password(self):
+        """Create random password"""
+        str_abc = 'qwertyuioplkjhgfdsazxcvbnm'
+        str_abc_upper = str_abc.upper()
+        str_num = '1234567890'
+        str_symbols = '!#$%^&*()_?><'
+        str_set_symbols = str_abc + str_abc_upper + str_num + str_symbols
+        set_symbols = list(str_set_symbols)
+        random.shuffle(set_symbols)
+        new_pas = ''.join(set_symbols)
+        return new_pas[:12]
 
     def test_refresh_first_page(self, start_page, registered_user):
         """Refresh first page:
@@ -41,12 +104,10 @@ class TestMainPage(TestStartPage):
 
         # find and click search icon
         main_page.transition_to_search_bar()
-        sleep(3)
 
         # verify search bar is opened successful
         main_page.verify_search_bar_opened()
         self.log.debug("Search bar was opened")
-        sleep(3)
 
     def test_transition_to_chat_form(self, start_page, registered_user):
         """Transition to the char form:
@@ -107,7 +168,6 @@ class TestMainPage(TestStartPage):
         # transition to create post
         main_page.transition_to_create_post_page()
         # verify create post is opened successful
-        sleep(2)
         create_post = main_page.transition_to_create_post_page()
         create_post.create_post_is_opened()
         self.log.info("Create post page is opened")

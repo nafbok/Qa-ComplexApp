@@ -20,7 +20,7 @@ class MainPage(BasePage):
 
     def logout(self):
         """Log out from user account"""
-        self.driver.find_element(by=By.XPATH, value=self.constants.SIGH_OUT_BUTTON_XPATH).click()
+        self.wait_until_element_enabled(value=self.constants.SIGN_OUT_BUTTON_XPATH).click()
 
     def refresh_main_page(self):
         """Refresh page by tapping logo-link"""

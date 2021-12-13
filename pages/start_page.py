@@ -1,9 +1,9 @@
-from time import sleep
-
 from selenium.webdriver.common.by import By
 
+from constants.main_page import MainPageConstants
 from constants.start_page import StartPageConstants
 from pages.base import BasePage
+from pages.utils import wait_until_ok
 
 
 class StartPage(BasePage):
@@ -41,10 +41,17 @@ class StartPage(BasePage):
         self.fill_field(by=By.XPATH, locator=self.constants.SIGN_UP_EMAIL_XPATH, value=email_value)
         self.fill_field(by=By.XPATH, locator=self.constants.SIGN_UP_PASSWORD_XPATH, value=password_value)
         self.log.debug("Fields were filled")
-        sleep(1)
 
         # Find Sign Up button
         self.driver.find_element(by=By.XPATH, value=self.constants.SIGN_UP_BUTTON_XPATH).click()
-        sleep(1)
         self.log.debug("User was registered")
         return MainPage(self.driver)
+
+    @wait_until_ok(timeout=10)
+    def _click_on_sign_up_button(self):
+        """Click on button until it disappear"""
+        # Perform click on button
+        self.wait_until_element_enabled(value=self.constants.SIGN_UP_BUTTON_XPATH).click()
+
+        # Verify welcome message
+        assert self.is_element_exists(value=MainPageConstants.WELCOME_MESSAGE_XPATH)
