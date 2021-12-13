@@ -1,0 +1,10 @@
+class MainPageConstants:
+    WELCOME_MESSAGE_XPATH = ".//h2[contains(text(), 'Hello')]"
+    SIGH_OUT_BUTTON_XPATH = ".//button[text() = 'Sign Out']"
+    LOGO_LINK_XPATH = ".//h4"
+    SEARCH_ICON_XPATH = ".//*[@data-original-title='Search']"
+    CHAT_ICON_XPATH = ".//*[@data-original-title='Chat']"
+    MY_PROFILE_ICON_XPATH = ".//*[@data-original-title='My Profile']"
+    CREATE_POST_BUTTON_XPATH = ".//*[text()='Create Post']"
+    PLACEHOLDER_SEARCH_BAR_XPATH = ".//input[@placeholder='What are you interested in?']"
+    CHAT_FORM_XPATH = ".//*[contains(text(), 'Chat')]"
