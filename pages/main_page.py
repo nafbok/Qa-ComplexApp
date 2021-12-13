@@ -14,13 +14,13 @@ class MainPage(BasePage):
 
     def verify_welcome_message(self, username):
         """Verify welcome message for the user"""
-
         hello_user = self.driver.find_element(by=By.XPATH, value=self.constants.WELCOME_MESSAGE_XPATH)
         assert hello_user.text == f"Hello {username.lower()}, your feed is empty."
 
     def logout(self):
         """Log out from user account"""
-        self.wait_until_element_enabled(value=self.constants.SIGN_OUT_BUTTON_XPATH).click()
+        logout_button = self.driver.find_element(value=self.constants.SIGN_OUT_BUTTON_XPATH)
+        logout_button.click()
 
     def refresh_main_page(self):
         """Refresh page by tapping logo-link"""
