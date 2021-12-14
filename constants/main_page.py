@@ -1,6 +1,6 @@
 class MainPageConstants:
     WELCOME_MESSAGE_XPATH = ".//h2[contains(text(), 'Hello')]"
-    SIGH_OUT_BUTTON_XPATH = ".//button[text() = 'Sign Out']"
+    SIGN_OUT_BUTTON_XPATH = ".//button[text()='Sign Out']"
     LOGO_LINK_XPATH = ".//h4"
     SEARCH_ICON_XPATH = ".//*[@data-original-title='Search']"
     CHAT_ICON_XPATH = ".//*[@data-original-title='Chat']"
