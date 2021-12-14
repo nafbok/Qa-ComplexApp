@@ -79,11 +79,9 @@ class TestStartPage(BaseTest):
         """
         # Init user data from fixture
         temp_username, _, temp_password = registered_user
-
         # Login as registered user
         main_page = start_page.login(temp_username, temp_password)
         self.log.info("Logged as '%s'", temp_username)
-
         #  Verify welcome message
         main_page.verify_welcome_message(temp_username)
         self.log.info("Welcome message was verified")

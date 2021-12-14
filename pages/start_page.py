@@ -1,3 +1,5 @@
+from time import sleep
+
 from selenium.webdriver.common.by import By
 
 from constants.main_page import MainPageConstants
@@ -24,8 +26,10 @@ class StartPage(BasePage):
         button = self.driver.find_element(by=By.XPATH, value=self.constants.SIGN_IN_BUTTON_XPATH)
         # Click button
         button.click()
+        sleep(1)
         self.log.debug("Clicked on 'Sign in'")
         return MainPage(self.driver)
+
 
     def verify_incorrect_login(self):
         """Verify error message an invalid login"""
@@ -43,6 +47,7 @@ class StartPage(BasePage):
         self.log.debug("Fields were filled")
 
         # Find Sign Up button
+        sleep(1)
         self.driver.find_element(by=By.XPATH, value=self.constants.SIGN_UP_BUTTON_XPATH).click()
         self.log.debug("User was registered")
         return MainPage(self.driver)
