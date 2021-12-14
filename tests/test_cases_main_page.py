@@ -1,5 +1,4 @@
 """Stores tests related to Start page and Main Page"""
-from time import sleep
 
 import pytest
 from selenium.webdriver.chrome import webdriver
@@ -91,12 +90,10 @@ class TestMainPage(BaseTest):
 
         # find and click chat icon
         main_page.transition_to_chat_form()
-        sleep(2)
 
         # verify chat form is opened successful
         main_page.verify_chat_form_opened()
         self.log.debug("Chat form is opened")
-        sleep(2)
 
     def test_transition_to_my_profile(self, start_page, registered_user):
         """Transition to my profile page:

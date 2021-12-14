@@ -13,9 +13,9 @@ class BasePage:
         self.log = logging.getLogger(__name__)
         self.wait = WebDriverWait(driver, timeout=5)
 
-    def fill_field(self, by, locator, value):
+    def fill_field(self, locator, value, by=By.XPATH):
         """Fill field using provided variables"""
-        username = self.driver.find_element(by=by, value=locator)
+        username = self.wait_until_element_enabled(by=by, value=locator)
         username.clear()
         username.send_keys(value)
 

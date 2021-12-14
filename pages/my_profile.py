@@ -1,5 +1,3 @@
-from selenium.webdriver.common.by import By
-
 from constants.my_profile import MyProfileConstants
 from pages.base import BasePage
 
@@ -12,5 +10,5 @@ class MyProfile(BasePage):
 
     def my_profile_is_opened(self):
         """Verify my profile is opened"""
-        username_text = self.driver.find_element(by=By.XPATH, value=self.constants.USER_NAME_XPATH)
+        username_text = self.wait_until_find_element(value=self.constants.USER_NAME_XPATH)
         assert username_text.is_displayed

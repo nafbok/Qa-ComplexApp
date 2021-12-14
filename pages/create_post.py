@@ -1,5 +1,3 @@
-from selenium.webdriver.common.by import By
-
 from constants.create_post import CreatePostConstants
 from pages.base import BasePage
 
@@ -12,5 +10,5 @@ class CreatePost(BasePage):
 
     def create_post_is_opened(self):
         """Verify create post page is opened"""
-        new_post = self.driver.find_element(by=By.XPATH, value=self.constants.TITLE_POST_XPATH)
+        new_post = self.wait_until_element_enabled(value=self.constants.TITLE_POST_XPATH)
         assert new_post.text == 'Title'
