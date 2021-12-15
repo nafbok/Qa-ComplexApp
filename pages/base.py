@@ -19,6 +19,11 @@ class BasePage:
         username.clear()
         username.send_keys(value)
 
+    def fill_field_post(self, locator, value, by=By.XPATH):
+        """Fill Title and Body Content"""
+        fields = self.wait_until_element_enabled(by=by, value=locator)
+        fields.send_keys(value)
+
     def is_element_exists(self, value, by=By.XPATH):
         """Return True if element could be find otherwise False"""
         try:
@@ -26,6 +31,7 @@ class BasePage:
             return True
         except TimeoutException:
             return False
+
 
     def wait_until_find_element(self, value, by=By.XPATH):
         """Wait until find element"""

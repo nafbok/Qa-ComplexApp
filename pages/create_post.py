@@ -1,3 +1,5 @@
+from selenium.webdriver.common.by import By
+
 from constants.create_post import CreatePostConstants
 from pages.base import BasePage
 
@@ -12,3 +14,18 @@ class CreatePost(BasePage):
         """Verify create post page is opened"""
         new_post = self.wait_until_element_enabled(value=self.constants.TITLE_POST_XPATH)
         assert new_post.text == 'Title'
+
+    def adding_new_post(self, title_value, body_content_value):
+        """Add new post"""
+        self.fill_field_post(by=By.XPATH, locator=self.constants.TITLE_POST_XPATH, value=title_value)
+        self.fill_field_post(by=By.XPATH, locator=self.constants.BODY_CONTENT_XPATH, value=body_content_value)
+        self.log.debug("Fields were filled")
+
+        # click save new post button
+        save_post_button = self.wait_until_find_element(value=self.constants.BUTTON_SAVE_NEW_POST_XPATH)
+        save_post_button.click()
+
+    def verify_adding_post(self):
+        """Verify new post was added successfully"""
+        message_added_post = self.wait_until_find_element(value=self.constants.MESSAGE_NEW_POST_CREATED_XPATH)
+        assert message_added_post.text == 'New post successfully created.'
