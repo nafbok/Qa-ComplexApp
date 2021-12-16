@@ -25,6 +25,11 @@ class CreatePost(BasePage):
         # click save new post button
         self._click_on_save_post_button()
 
+    def delete_created_post(self):
+        delete_post = self.wait_until_find_element(value=self.constants.REMOVE_ICON_XPATH)
+        delete_post.click()
+        self.log.info("Post was deleted")
+
     @wait_until_ok(timeout=10)
     def _click_on_save_post_button(self):
         """Click on button until it disappear"""

@@ -62,3 +62,45 @@ class TestCreatePostPage(BaseTest):
         # Verify New post added message success"""
         create_new_post.verify_adding_post()
         self.log.info("Message New post successfully created is displayed")
+
+    def test_remove_post(self, start_page, registered_user):
+        """Remove created post:
+            Steps:
+                - Log in
+                - Go to Create Post page
+                - Create post
+                - Verify New post added message success
+                - Delete post
+                - Verify New post deleted message success"""
+
+        title_post_value = self.title_post()
+        body_post_value = self.body_post()
+
+        # Init user data from fixture
+        temp_username, _, temp_password = registered_user
+
+        # Login as registered user
+        main_page = start_page.login(temp_username, temp_password)
+        self.log.info("Logged as '%s'", temp_username)
+
+        # Go to the Create Post
+        main_page.transition_to_create_post_page()
+
+        # Add new post
+        create_new_post = main_page.transition_to_create_post_page()
+        self.log.info("Create page is opened")
+        create_new_post.adding_new_post(title_post_value, body_post_value)
+        self.log.info("New post is added")
+
+        # Verify New post added message success"""
+        create_new_post.verify_adding_post()
+        self.log.info("Message New post successfully created is displayed")
+
+        # Delete Post
+        create_new_post.delete_created_post()
+        self.log.info("Post was deleted")
+
+        # Verify Post was deleted successfully
+        create_new_post = main_page.transition_to_my_profile()
+        create_new_post.verify_message_deleted_post()
+        self.log.info("Message is displayed")
