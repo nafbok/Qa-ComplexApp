@@ -43,3 +43,13 @@ class BaseTest:
         random.shuffle(set_symbols)
         new_pas = ''.join(set_symbols)
         return new_pas[:12]
+
+    def title_post(self):
+        """Title for new post"""
+        title_post = "Test"
+        return title_post
+
+    def body_post(self):
+        """Body content for new post"""
+        body_post = "Vary long smart article"
+        return body_post
