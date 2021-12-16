@@ -16,4 +16,4 @@ class MyProfile(BasePage):
     def verify_message_deleted_post(self):
         """Verify post was deleted successfully"""
         message_text = self.wait_until_find_element(value=self.constants.MESSAGE_DELETED_POST_XPATH)
-        assert message_text == 'Post successfully deleted'
+        assert message_text.is_displayed

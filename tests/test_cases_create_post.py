@@ -97,10 +97,9 @@ class TestCreatePostPage(BaseTest):
         self.log.info("Message New post successfully created is displayed")
 
         # Delete Post
-        create_new_post.delete_created_post()
+        my_profile = create_new_post.delete_created_post()
         self.log.info("Post was deleted")
 
         # Verify Post was deleted successfully
-        create_new_post = main_page.transition_to_my_profile()
-        create_new_post.verify_message_deleted_post()
+        my_profile.verify_message_deleted_post()
         self.log.info("Message is displayed")

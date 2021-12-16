@@ -2,6 +2,7 @@ from selenium.webdriver.common.by import By
 
 from constants.create_post import CreatePostConstants
 from pages.base import BasePage
+from pages.my_profile import MyProfile
 from pages.utils import wait_until_ok
 
 
@@ -29,6 +30,7 @@ class CreatePost(BasePage):
         delete_post = self.wait_until_find_element(value=self.constants.REMOVE_ICON_XPATH)
         delete_post.click()
         self.log.info("Post was deleted")
+        return MyProfile(self.driver)
 
     @wait_until_ok(timeout=10)
     def _click_on_save_post_button(self):
