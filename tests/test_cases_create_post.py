@@ -12,6 +12,7 @@ class TestCreatePostPage(BaseTest):
     def driver(self):
         """Create and return driver, close after test"""
         driver = webdriver.WebDriver(BaseConstants.DRIVER_PATH)
+        driver.maximize_window()
         yield driver
         driver.close()
 
@@ -39,8 +40,8 @@ class TestCreatePostPage(BaseTest):
             - Go to the Create Post
             - Add new post
             - Verify New post added message success"""
-        title_post = 'Test'
-        body_post = 'Text'
+        title_post_value = self.title_post()
+        body_post_value = self.body_post()
 
         # Init user data from fixture
         temp_username, _, temp_password = registered_user
@@ -55,7 +56,7 @@ class TestCreatePostPage(BaseTest):
         # Add new post
         create_new_post = main_page.transition_to_create_post_page()
         self.log.info("Create page is opened")
-        create_new_post.adding_new_post(title_post, body_post)
+        create_new_post.adding_new_post(title_post_value, body_post_value)
         self.log.info("New post is added")
 
         # Verify New post added message success"""
