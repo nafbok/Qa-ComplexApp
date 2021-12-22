@@ -3,6 +3,11 @@ import logging
 import random
 from time import sleep
 
+from selenium.webdriver.chrome import webdriver as chrome
+from selenium.webdriver.firefox import webdriver as firefox
+
+from constants.base import BaseConstants
+
 
 def wait_until_ok(timeout=5, period=0.25):
     logger = logging.getLogger("[WaitUntilOk]")
@@ -83,3 +88,14 @@ class User:
         self.username = random_username()
         self.email = random_email()
         self.password = random_password()
+
+
+def create_driver(browser):
+    """Create driver according to browser"""
+    if browser == BaseConstants.CHROME:
+        driver = chrome.WebDriver()
+    elif browser == BaseConstants.FIREFOX:
+        driver = firefox.WebDriver()
+    else:
+        raise RuntimeError(f"Unknown browser name: {browser}")
+    return driver

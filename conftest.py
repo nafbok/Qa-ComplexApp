@@ -1,17 +1,20 @@
 """Conftest"""
 import logging
+import os
 
 import pytest
-from selenium.webdriver.chrome import webdriver
 
 from constants.base import BaseConstants
 from pages.start_page import StartPage
-from pages.utils import User
+from pages.utils import User, create_driver
 
 
 def pytest_runtest_setup(item):
-    # item.cls.logger = logging.getLogger(".".join((item.module.__name__, item.cls.__name__, item.name)))
-    item.cls.logger = logging.getLogger(item.name)
+    item.cls.logger = logging.getLogger(".".join((item.module.__name__, item.cls.__name__, item.name)))
+
+
+def pytest_sessionstart(session):
+    os.environ["PATH"] = os.environ["PATH"] + f":{os.path.abspath(BaseConstants.DRIVERS_PATH)}"
 
 
 class BaseTest:
@@ -21,7 +24,7 @@ class BaseTest:
     @pytest.fixture(scope='function')
     def driver(self):
         """Create and return driver, close after test"""
-        driver = webdriver.WebDriver(BaseConstants.DRIVER_PATH)
+        driver = create_driver(browser=BaseConstants.CHROME)
         driver.maximize_window()
         yield driver
         driver.close()
