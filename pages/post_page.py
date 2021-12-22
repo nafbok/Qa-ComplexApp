@@ -1,22 +1,17 @@
-from conftest import BaseTest
+
 from constants.post_page import PostPageConstants
+from pages.base import BasePage
 from pages.header import Header
 from pages.my_profile import MyProfile
 from pages.utils import log_decorator
 
 
-class PostPage(BaseTest):
+class PostPage(BasePage):
 
     def __init__(self, driver):
         super().__init__(driver)
         self.constants = PostPageConstants()
         self.header = Header(self.driver)
-
-    @log_decorator
-    def post_is_added(self):
-        """Verify created post"""
-        success_message = self.wait_until_find_element(value=self.constants.MESSAGE_NEW_POST_CREATED_XPATH)
-        assert success_message == "New post successfully created."
 
     @log_decorator
     def delete_created_post(self):
@@ -31,3 +26,4 @@ class PostPage(BaseTest):
         """Verify new post was added successfully"""
         message_added_post = self.wait_until_find_element(value=self.constants.MESSAGE_NEW_POST_CREATED_XPATH)
         assert message_added_post.text == 'New post successfully created.'
+
