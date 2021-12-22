@@ -3,5 +3,3 @@ class CreatePostConstants:
     TITLE_INPUT_XPATH = ".//input[@id='post-title']"
     BODY_CONTENT_XPATH = ".//*[@id='post-body']"
     BUTTON_SAVE_NEW_POST_XPATH = ".//button[text()='Save New Post']"
-    MESSAGE_NEW_POST_CREATED_XPATH = ".//*[text()='New post successfully created.']"
-    REMOVE_ICON_XPATH = ".//button[@data-toggle='tooltip']"

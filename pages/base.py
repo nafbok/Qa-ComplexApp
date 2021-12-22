@@ -32,10 +32,13 @@ class BasePage:
         except TimeoutException:
             return False
 
-
     def wait_until_find_element(self, value, by=By.XPATH):
         """Wait until find element"""
         return self.wait.until(EC.visibility_of_element_located(locator=(by, value)))
+
+    def wait_until_find_elements(self, value, by=By.XPATH):
+        """Wait until find elements"""
+        return self.wait.until(EC.visibility_of_all_elements_located(locator=(by, value)))
 
     def wait_until_element_enabled(self, value, by=By.XPATH):
         """Wait until element enabled"""
