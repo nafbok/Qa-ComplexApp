@@ -1,3 +1,7 @@
 class BaseConstants:
-    DRIVER_PATH = "../drivers/chromedriver.exe"
+    DRIVERS_PATH = "./drivers/"
     URL = "https://qa-complex-app-for-testing.herokuapp.com/"
+
+    # Browsers
+    FIREFOX = "firefox"
+    CHROME = "chrome"
